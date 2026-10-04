@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quizera | Profile</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="profile-page">
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav class="navbar">
+
+        <div class="navbar-container">
+
+            <a href="{{ url_for('home') }}" class="logo">
+                Quizera<span>.</span>
+            </a>
+
+            <div class="nav-links">
+
+                <a href="{{ url_for('home') }}">
+                    Home
+                </a>
+
+                <a href="{{ url_for('learn') }}">
+                    Learn
+                </a>
+
+                <a href="{{ url_for('practice') }}">
+                    Practice
+                </a>
+
+                <a href="{{ url_for('quizzes') }}">
+                    Quiz
+                </a>
+
+                <a href="{{ url_for('progress') }}">
+                    Progress
+                </a>
+
+                <a href="{{ url_for('leaderboard') }}">
+                    Leaderboard
+                </a>
+
+                <a href="{{ url_for('profile') }}" class="active">
+                    Profile
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         PROFILE HERO
+    ====================================================== -->
+
+    <section class="profile-ai-hero">
+
+        <div class="ai-grid"></div>
+
+        <div class="profile-hero-container">
+
+            <div class="profile-hero-content">
+
+                <div class="ai-hero-badge">
+                    <span class="hero-status-dot"></span>
+                    QUIZERA AI · YOUR PROFILE
+                </div>
+
+                <h1>
+                    Welcome back,
+                    <span>{{ user.username }}</span>
+                </h1>
+
+                <p>
+                    Manage your profile, review your learning activity,
+                    and continue building your skills with Quizera.
+                </p>
+
+                <div class="profile-hero-actions">
+
+                    <a href="{{ url_for('learn') }}"
+                       class="primary-btn">
+                        Continue Learning
+                        <span>→</span>
+                    </a>
+
+                    <a href="{{ url_for('progress') }}"
+                       class="secondary-btn">
+                        View Progress
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- AI PROFILE VISUAL -->
+
+            <div class="profile-ai-visual">
+
+                <div class="profile-orbit profile-orbit-one"></div>
+                <div class="profile-orbit profile-orbit-two"></div>
+                <div class="profile-orbit profile-orbit-three"></div>
+
+                <div class="profile-core">
+
+                    <div class="profile-core-header">
+
+                        <span>USER NODE</span>
+
+                        <span class="profile-live">
+                            ● ACTIVE
+                        </span>
+
+                    </div>
+
+                    <div class="profile-core-avatar">
+
+                        {% if user.profile_picture %}
+
+                            <img
+                                src="{{ url_for('static', filename='uploads/profile_pictures/' + user.profile_picture) }}"
+                                alt="Profile Picture"
+                            >
+
+                        {% else %}
+
+                            <span>
+                                {{ user.username[0]|upper }}
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                    <strong>
+                        {{ user.username }}
+                    </strong>
+
+                    <small>
+                        Learning Profile
+                    </small>
+
+                    <div class="profile-core-lines">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                    <div class="profile-core-status">
+                        READY TO LEARN
+                    </div>
+
+                </div>
+
+
+                <!-- FLOATING DATA -->
+
+                <div class="profile-floating-card profile-float-one">
+
+                    <span>XP</span>
+
+                    <strong>
+                        {{ stats.quizzes_completed }}
+                    </strong>
+
+                </div>
+
+                <div class="profile-floating-card profile-float-two">
+
+                    <span>BEST</span>
+
+                    <strong>
+                        {{ stats.best_score }}%
+                    </strong>
+
+                </div>
+
+                <div class="profile-floating-card profile-float-three">
+
+                    <span>AVG</span>
+
+                    <strong>
+                        {{ stats.average_score }}%
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PROFILE CONTENT
+    ====================================================== -->
+
+    <main class="profile-main">
+
+        <div class="profile-content-container">
+
+
+            <!-- =================================================
+                 PROFILE OVERVIEW
+            ================================================== -->
+
+            <section class="profile-overview-section">
+
+                <div class="profile-section-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            ACCOUNT
+                        </span>
+
+                        <h2>
+                            Your Profile
+                        </h2>
+
+                        <p>
+                            Your personal information and account details.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-layout">
+
+
+                    <!-- =========================================
+                         MAIN PROFILE CARD
+                    ========================================== -->
+
+                    <div class="profile-card profile-main-card">
+
+                        <div class="profile-card-tech-line"></div>
+
+                        <div class="profile-avatar-large">
+
+                            {% if user.profile_picture %}
+
+                                <img
+                                    src="{{ url_for('static', filename='uploads/profile_pictures/' + user.profile_picture) }}"
+                                    alt="Profile Picture"
+                                >
+
+                            {% else %}
+
+                                <span>
+                                    {{ user.username[0]|upper }}
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="profile-status">
+                            <span></span>
+                            ACTIVE LEARNER
+                        </div>
+
+                        <h2>
+                            {{ user.username }}
+                        </h2>
+
+                        <p class="profile-email">
+                            {{ user.email or "No email added" }}
+                        </p>
+
+
+                        <!-- UPLOAD -->
+
+                        <form
+                            action="{{ url_for('upload_profile_picture') }}"
+                            method="POST"
+                            enctype="multipart/form-data"
+                            class="profile-upload-form"
+                        >
+
+                            <label
+                                for="profile_picture"
+                                class="upload-label"
+                            >
+                                Change profile picture
+                            </label>
+
+                            <input
+                                type="file"
+                                id="profile_picture"
+                                name="profile_picture"
+                                accept="image/*"
+                                required
+                            >
+
+                            <button
+                                type="submit"
+                                class="primary-btn profile-upload-btn"
+                            >
+                                Upload Picture
+                            </button>
+
+                        </form>
+
+
+                        <a
+                            href="{{ url_for('edit_profile') }}"
+                            class="secondary-btn profile-edit-btn"
+                        >
+                            Edit Profile
+                        </a>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         RIGHT SIDE
+                    ========================================== -->
+
+                    <div class="profile-details">
+
+
+                        <!-- =====================================
+                             PERSONAL INFORMATION
+                        ====================================== -->
+
+                        <div class="profile-card">
+
+                            <div class="profile-card-heading">
+
+                                <div>
+
+                                    <span class="card-label">
+                                        PERSONAL INFORMATION
+                                    </span>
+
+                                    <h2>
+                                        Your Details
+                                    </h2>
+
+                                </div>
+
+                                <div class="profile-card-icon">
+                                    👤
+                                </div>
+
+                            </div>
+
+
+                            <div class="profile-info-grid">
+
+
+                                <div class="profile-info-item">
+
+                                    <span>
+                                        Name
+                                    </span>
+
+                                    <strong>
+                                        {{ user.username }}
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="profile-info-item">
+
+                                    <span>
+                                        Email
+                                    </span>
+
+                                    <strong>
+                                        {{ user.email or "Not added" }}
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="profile-info-item">
+
+                                    <span>
+                                        Mobile
+                                    </span>
+
+                                    <strong>
+                                        {{ user.mobile or "Not added" }}
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="profile-info-item">
+
+                                    <span>
+                                        Education
+                                    </span>
+
+                                    <strong>
+                                        {{ user.education or "Not added" }}
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="profile-info-item">
+
+                                    <span>
+                                        Location
+                                    </span>
+
+                                    <strong>
+                                        {{ user.location or "Not added" }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =====================================
+                             LEARNING STATISTICS
+                        ====================================== -->
+
+                        <div class="profile-card">
+
+                            <div class="profile-card-heading">
+
+                                <div>
+
+                                    <span class="card-label">
+                                        LEARNING ACTIVITY
+                                    </span>
+
+                                    <h2>
+                                        Your Statistics
+                                    </h2>
+
+                                </div>
+
+                                <div class="profile-card-icon">
+                                    📊
+                                </div>
+
+                            </div>
+
+
+                            <div class="profile-stats-grid">
+
+
+                                <div class="profile-stat">
+
+                                    <div class="stat-icon">
+                                        🎯
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            {{ stats.quizzes_completed }}
+                                        </strong>
+
+                                        <span>
+                                            Quizzes Completed
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="profile-stat">
+
+                                    <div class="stat-icon">
+                                        🏆
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            {{ stats.best_score }}%
+                                        </strong>
+
+                                        <span>
+                                            Best Score
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="profile-stat">
+
+                                    <div class="stat-icon">
+                                        📈
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            {{ stats.average_score }}%
+                                        </strong>
+
+                                        <span>
+                                            Average Score
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 QUICK ACTIONS
+            ================================================== -->
+
+            <section class="profile-actions-section">
+
+                <div class="profile-section-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            LEARNING COMMANDS
+                        </span>
+
+                        <h2>
+                            What do you want to do?
+                        </h2>
+
+                        <p>
+                            Jump directly into your next learning activity.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-actions-grid">
+
+
+                    <!-- LEARN -->
+
+                    <a
+                        href="{{ url_for('learn') }}"
+                        class="profile-action"
+                    >
+
+                        <div class="action-icon">
+                            📚
+                        </div>
+
+                        <div class="action-content">
+
+                            <span class="action-label">
+                                LEARN
+                            </span>
+
+                            <strong>
+                                Continue Learning
+                            </strong>
+
+                            <small>
+                                Explore topics and lessons
+                            </small>
+
+                        </div>
+
+                        <span class="action-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <!-- PRACTICE -->
+
+                    <a
+                        href="{{ url_for('practice') }}"
+                        class="profile-action"
+                    >
+
+                        <div class="action-icon">
+                            ✏️
+                        </div>
+
+                        <div class="action-content">
+
+                            <span class="action-label">
+                                PRACTICE
+                            </span>
+
+                            <strong>
+                                Strengthen Your Skills
+                            </strong>
+
+                            <small>
+                                Solve questions and improve
+                            </small>
+
+                        </div>
+
+                        <span class="action-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <!-- QUIZ -->
+
+                    <a
+                        href="{{ url_for('quizzes') }}"
+                        class="profile-action"
+                    >
+
+                        <div class="action-icon">
+                            🧠
+                        </div>
+
+                        <div class="action-content">
+
+                            <span class="action-label">
+                                QUIZ
+                            </span>
+
+                            <strong>
+                                Test Your Knowledge
+                            </strong>
+
+                            <small>
+                                Challenge yourself
+                            </small>
+
+                        </div>
+
+                        <span class="action-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <!-- PROGRESS -->
+
+                    <a
+                        href="{{ url_for('progress') }}"
+                        class="profile-action"
+                    >
+
+                        <div class="action-icon">
+                            📈
+                        </div>
+
+                        <div class="action-content">
+
+                            <span class="action-label">
+                                PROGRESS
+                            </span>
+
+                            <strong>
+                                View Your Progress
+                            </strong>
+
+                            <small>
+                                Track your performance
+                            </small>
+
+                        </div>
+
+                        <span class="action-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <!-- LEADERBOARD -->
+
+                    <a
+                        href="{{ url_for('leaderboard') }}"
+                        class="profile-action"
+                    >
+
+                        <div class="action-icon">
+                            🏆
+                        </div>
+
+                        <div class="action-content">
+
+                            <span class="action-label">
+                                RANKING
+                            </span>
+
+                            <strong>
+                                View Leaderboard
+                            </strong>
+
+                            <small>
+                                See how you rank
+                            </small>
+
+                        </div>
+
+                        <span class="action-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 PROFILE AI MESSAGE
+            ================================================== -->
+
+            <section class="profile-ai-message">
+
+                <div class="profile-ai-message-icon">
+                    AI
+                </div>
+
+                <div>
+
+                    <span>
+                        QUIZERA AI
+                    </span>
+
+                    <h2>
+                        Your progress is your power.
+                    </h2>
+
+                    <p>
+                        Keep learning, practice consistently,
+                        and use every quiz as a chance to improve.
+                    </p>
+
+                </div>
+
+                <a
+                    href="{{ url_for('learn') }}"
+                    class="primary-btn"
+                >
+                    Start Learning
+                    <span>→</span>
+                </a>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="ai-footer">
+
+        <div class="footer-container">
+
+            <div>
+
+                <h3 class="footer-logo">
+                    Quizera<span>.</span>
+                </h3>
+
+                <p class="footer-text">
+                    Learn. Practice. Quiz. Track your progress.
+                </p>
+
+            </div>
+
+            <div class="footer-links">
+
+                <a href="{{ url_for('learn') }}">
+                    Learn
+                </a>
+
+                <a href="{{ url_for('practice') }}">
+                    Practice
+                </a>
+
+                <a href="{{ url_for('quizzes') }}">
+                    Quiz
+                </a>
+
+                <a href="{{ url_for('progress') }}">
+                    Progress
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 Quizera. Keep learning, keep growing.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

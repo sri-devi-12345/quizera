@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quizera | Edit Profile</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="edit-profile-page">
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav class="navbar">
+
+        <div class="navbar-container">
+
+            <a href="{{ url_for('home') }}" class="logo">
+                Quizera<span>.</span>
+            </a>
+
+            <div class="nav-links">
+
+                <a href="{{ url_for('home') }}">
+                    Home
+                </a>
+
+                <a href="{{ url_for('learn') }}">
+                    Learn
+                </a>
+
+                <a href="{{ url_for('practice') }}">
+                    Practice
+                </a>
+
+                <a href="{{ url_for('quizzes') }}">
+                    Quiz
+                </a>
+
+                <a href="{{ url_for('progress') }}">
+                    Progress
+                </a>
+
+                <a href="{{ url_for('leaderboard') }}">
+                    Leaderboard
+                </a>
+
+                <a href="{{ url_for('profile') }}" class="active">
+                    Profile
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         EDIT PROFILE HERO
+    ====================================================== -->
+
+    <section class="edit-profile-hero">
+
+        <div class="ai-grid"></div>
+
+        <div class="edit-profile-hero-container">
+
+            <div class="edit-profile-hero-content">
+
+                <div class="ai-hero-badge">
+                    <span class="hero-status-dot"></span>
+                    QUIZERA AI · ACCOUNT SETTINGS
+                </div>
+
+                <h1>
+                    Customize your
+                    <span>learning profile.</span>
+                </h1>
+
+                <p>
+                    Keep your personal and academic information
+                    up to date so your Quizera profile stays accurate.
+                </p>
+
+                <div class="edit-profile-status">
+
+                    <span class="edit-status-dot"></span>
+
+                    PROFILE CONFIGURATION
+
+                </div>
+
+            </div>
+
+
+            <!-- AI SETTINGS VISUAL -->
+
+            <div class="edit-profile-ai-visual">
+
+                <div class="edit-orbit edit-orbit-one"></div>
+                <div class="edit-orbit edit-orbit-two"></div>
+                <div class="edit-orbit edit-orbit-three"></div>
+
+                <div class="edit-profile-core">
+
+                    <div class="edit-core-header">
+
+                        <span>PROFILE SYSTEM</span>
+
+                        <span class="edit-core-live">
+                            ● ONLINE
+                        </span>
+
+                    </div>
+
+                    <div class="edit-core-icon">
+                        ⚙
+                    </div>
+
+                    <strong>
+                        SETTINGS
+                    </strong>
+
+                    <small>
+                        Profile configuration
+                    </small>
+
+                    <div class="edit-core-lines">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                    <div class="edit-core-status">
+                        READY
+                    </div>
+
+                </div>
+
+
+                <div class="edit-floating-card edit-float-one">
+
+                    <span>USER</span>
+
+                    <strong>
+                        {{ user.username }}
+                    </strong>
+
+                </div>
+
+                <div class="edit-floating-card edit-float-two">
+
+                    <span>EMAIL</span>
+
+                    <strong>
+                        ✓
+                    </strong>
+
+                </div>
+
+                <div class="edit-floating-card edit-float-three">
+
+                    <span>DATA</span>
+
+                    <strong>
+                        SYNC
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="edit-profile-main">
+
+        <div class="edit-profile-container">
+
+
+            <!-- =================================================
+                 PAGE HEADING
+            ================================================== -->
+
+            <div class="edit-page-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        PROFILE INFORMATION
+                    </span>
+
+                    <h2>
+                        Personal Details
+                    </h2>
+
+                    <p>
+                        Update your information below.
+                    </p>
+
+                </div>
+
+                <div class="edit-heading-icon">
+                    ✏️
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORM CARD
+            ================================================== -->
+
+            <div class="edit-profile-card">
+
+
+                <!-- TOP TECH LINE -->
+
+                <div class="edit-card-tech-line"></div>
+
+
+                <!-- FORM -->
+
+                <form
+                    action="{{ url_for('edit_profile') }}"
+                    method="POST"
+                    class="profile-form"
+                >
+
+
+                    <!-- =========================================
+                         USERNAME
+                    ========================================== -->
+
+                    <div class="form-group">
+
+                        <label for="username">
+                            Username
+                        </label>
+
+                        <span class="form-description">
+                            The name displayed across Quizera.
+                        </span>
+
+                        <div class="form-input-wrapper">
+
+                            <span class="input-icon">
+                                👤
+                            </span>
+
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                value="{{ user.username }}"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         EMAIL
+                    ========================================== -->
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <span class="form-description">
+                            Used for your account information.
+                        </span>
+
+                        <div class="form-input-wrapper">
+
+                            <span class="input-icon">
+                                @
+                            </span>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value="{{ user.email or '' }}"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         MOBILE
+                    ========================================== -->
+
+                    <div class="form-group">
+
+                        <label for="mobile">
+                            Mobile Number
+                        </label>
+
+                        <span class="form-description">
+                            Optional contact information.
+                        </span>
+
+                        <div class="form-input-wrapper">
+
+                            <span class="input-icon">
+                                📱
+                            </span>
+
+                            <input
+                                type="tel"
+                                id="mobile"
+                                name="mobile"
+                                value="{{ user.mobile or '' }}"
+                                placeholder="Enter your mobile number"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         EDUCATION
+                    ========================================== -->
+
+                    <div class="form-group">
+
+                        <label for="education">
+                            Education
+                        </label>
+
+                        <span class="form-description">
+                            Your current degree or educational background.
+                        </span>
+
+                        <div class="form-input-wrapper">
+
+                            <span class="input-icon">
+                                🎓
+                            </span>
+
+                            <input
+                                type="text"
+                                id="education"
+                                name="education"
+                                value="{{ user.education or '' }}"
+                                placeholder="e.g. B.Sc. Computer Science"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         LOCATION
+                    ========================================== -->
+
+                    <div class="form-group">
+
+                        <label for="location">
+                            Location
+                        </label>
+
+                        <span class="form-description">
+                            The location shown on your profile.
+                        </span>
+
+                        <div class="form-input-wrapper">
+
+                            <span class="input-icon">
+                                📍
+                            </span>
+
+                            <input
+                                type="text"
+                                id="location"
+                                name="location"
+                                value="{{ user.location or '' }}"
+                                placeholder="e.g. Chennai, India"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         FORM STATUS
+                    ========================================== -->
+
+                    <div class="edit-form-notice">
+
+                        <div class="notice-icon">
+                            AI
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Profile synchronization
+                            </strong>
+
+                            <p>
+                                Your updated information will be
+                                reflected across your Quizera profile.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         BUTTONS
+                    ========================================== -->
+
+                    <div class="edit-form-actions">
+
+                        <a
+                            href="{{ url_for('profile') }}"
+                            class="secondary-btn"
+                        >
+                            ← Cancel
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="primary-btn"
+                        >
+                            Save Changes
+                            <span>✓</span>
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- =================================================
+                 BACK TO PROFILE
+            ================================================== -->
+
+            <div class="edit-back-profile">
+
+                <a href="{{ url_for('profile') }}">
+                    ← Back to your profile
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="ai-footer">
+
+        <div class="footer-container">
+
+            <div>
+
+                <h3 class="footer-logo">
+                    Quizera<span>.</span>
+                </h3>
+
+                <p class="footer-text">
+                    Learn. Practice. Quiz. Track your progress.
+                </p>
+
+            </div>
+
+            <div class="footer-links">
+
+                <a href="{{ url_for('learn') }}">
+                    Learn
+                </a>
+
+                <a href="{{ url_for('practice') }}">
+                    Practice
+                </a>
+
+                <a href="{{ url_for('quizzes') }}">
+                    Quiz
+                </a>
+
+                <a href="{{ url_for('progress') }}">
+                    Progress
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 Quizera. Keep learning, keep growing.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

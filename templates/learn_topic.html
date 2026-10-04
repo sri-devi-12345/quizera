@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{{ topic.title }} | Quizera AI Learning Lab</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar">
+
+    <div class="navbar-container">
+
+        <a
+            href="{{ url_for('home') }}"
+            class="logo"
+        >
+            Quizera<span>.</span>
+        </a>
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+
+            <a
+                href="{{ url_for('learn') }}"
+                class="active"
+            >
+                Learn
+            </a>
+
+            <a href="{{ url_for('practice') }}">
+                Practice
+            </a>
+
+            <a href="{{ url_for('quizzes') }}">
+                Quizzes
+            </a>
+
+            <a href="{{ url_for('progress') }}">
+                Progress
+            </a>
+
+            <a href="{{ url_for('leaderboard') }}">
+                Leaderboard
+            </a>
+
+            <a href="{{ url_for('profile') }}">
+                Profile
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main>
+
+
+<!-- =========================================================
+     TOPIC HERO
+========================================================= -->
+
+<section class="hero ai-hero">
+
+    <div class="ai-grid"></div>
+
+    <div class="hero-container">
+
+
+        <!-- TOPIC INFORMATION -->
+
+        <div class="hero-content">
+
+            <div class="hero-badge ai-badge">
+
+                <span class="status-dot"></span>
+
+                {{ content.level }} · LEARNING MODULE
+
+            </div>
+
+
+            <h1>
+
+                {{ content.title }}
+
+            </h1>
+
+
+            <p>
+
+                {{ topic.description }}
+
+            </p>
+
+
+            <div class="hero-actions">
+
+                <a
+                    href="{{ url_for(
+                        'practice_category',
+                        category=topic.category
+                    ) }}"
+                    class="btn btn-primary"
+                >
+                    Start Practice
+                    <span>→</span>
+                </a>
+
+
+                <a
+                    href="{{ url_for(
+                        'quiz',
+                        category=topic.category
+                    ) }}"
+                    class="btn btn-secondary"
+                >
+                    Take Quiz
+                </a>
+
+            </div>
+
+
+            <div class="hero-mini-info">
+
+                <span>
+
+                    <strong>
+                        {{ content.sections|length }}
+                    </strong>
+
+                    Lessons
+
+                </span>
+
+
+                <span class="mini-divider"></span>
+
+
+                <span>
+
+                    <strong>
+                        {{ content.level }}
+                    </strong>
+
+                    Level
+
+                </span>
+
+
+                <span class="mini-divider"></span>
+
+
+                <span>
+
+                    <strong>
+                        AI
+                    </strong>
+
+                    Learning Lab
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             TOPIC VISUAL
+        ================================================== -->
+
+        <div class="hero-visual topic-hero-visual">
+
+            <div class="robot-glow"></div>
+
+
+            <div class="topic-tech-orbit"></div>
+
+
+            <div class="topic-visual-card">
+
+                <div class="topic-visual-header">
+
+                    <span class="topic-system-dot"></span>
+
+                    QUIZERA LEARNING SYSTEM
+
+                    <span class="topic-system-status">
+                        ACTIVE
+                    </span>
+
+                </div>
+
+
+                <div class="topic-main-icon">
+
+                    {{ content.icon }}
+
+                </div>
+
+
+                <h3>
+                    {{ content.title }}
+                </h3>
+
+
+                <p>
+                    {{ topic.category }}
+                </p>
+
+
+                <div class="topic-progress-line">
+
+                    <span></span>
+
+                </div>
+
+
+                <div class="topic-visual-meta">
+
+                    <span>
+                        <small>LEVEL</small>
+                        {{ content.level }}
+                    </span>
+
+                    <span>
+                        <small>MODULES</small>
+                        {{ content.sections|length }}
+                    </span>
+
+                    <span>
+                        <small>STATUS</small>
+                        Ready
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="robot-data-card topic-data-one">
+
+                <span class="data-icon">
+                    ✓
+                </span>
+
+                <div>
+
+                    <strong>
+                        Lessons ready
+                    </strong>
+
+                    <small>
+                        Start learning
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="robot-data-card topic-data-two">
+
+                <span class="data-icon">
+                    →
+                </span>
+
+                <div>
+
+                    <strong>
+                        Practice next
+                    </strong>
+
+                    <small>
+                        Reinforce knowledge
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     LESSON CONTENT
+========================================================= -->
+
+<section class="section ai-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <span class="section-label">
+                LEARNING MODULE
+            </span>
+
+            <h2>
+                Learn {{ content.title }}
+            </h2>
+
+            <p>
+                Work through each lesson in order,
+                understand the concepts and then move
+                on to practice.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    {% if content.sections %}
+
+
+    <div class="ai-lesson-list">
+
+        {% for section in content.sections %}
+
+        <article class="ai-lesson-card">
+
+
+            <!-- LESSON NUMBER -->
+
+            <div class="ai-lesson-number">
+
+                <span>
+                    {{ "%02d"|format(loop.index) }}
+                </span>
+
+            </div>
+
+
+            <!-- LESSON CONTENT -->
+
+            <div class="ai-lesson-body">
+
+                <div class="ai-lesson-meta">
+
+                    <span class="lesson-status-dot"></span>
+
+                    LESSON {{ loop.index }}
+
+                </div>
+
+
+                <h2>
+                    {{ section.title }}
+                </h2>
+
+
+                <div class="ai-lesson-text">
+
+                    {{ section.content
+                        | trim
+                        | replace('\n', '<br>')
+                        | safe
+                    }}
+
+                </div>
+
+            </div>
+
+
+            <!-- LESSON SIDE -->
+
+            <div class="ai-lesson-side">
+
+                <span class="lesson-side-label">
+                    MODULE
+                </span>
+
+                <strong>
+                    {{ "%02d"|format(loop.index) }}
+                </strong>
+
+                {% if not loop.last %}
+
+                <span class="lesson-next-line">
+                    ↓
+                </span>
+
+                {% else %}
+
+                <span class="lesson-complete-icon">
+                    ✓
+                </span>
+
+                {% endif %}
+
+            </div>
+
+        </article>
+
+        {% endfor %}
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- =====================================================
+         EMPTY CONTENT
+    ====================================================== -->
+
+    <div class="empty-state">
+
+        <div class="empty-state-icon">
+            ◈
+        </div>
+
+        <h2>
+            Learning content coming soon
+        </h2>
+
+        <p>
+            We're preparing lessons for this topic.
+        </p>
+
+        <a
+            href="{{ url_for('learn') }}"
+            class="btn btn-primary"
+        >
+            ← Back to Learning
+        </a>
+
+    </div>
+
+
+    {% endif %}
+
+</section>
+
+
+<!-- =========================================================
+     LEARNING FLOW
+========================================================= -->
+
+<section class="section ai-section">
+
+    <div class="section-header center">
+
+        <span class="section-label">
+            NEXT STEP
+        </span>
+
+        <h2>
+            Ready to apply what you learned?
+        </h2>
+
+        <p>
+            Move through the Quizera learning system:
+            Practice → Quiz → Progress.
+        </p>
+
+    </div>
+
+
+    <div class="ai-learning-path">
+
+
+        <!-- PRACTICE -->
+
+        <a
+            href="{{ url_for(
+                'practice_category',
+                category=topic.category
+            ) }}"
+            class="ai-path-card"
+        >
+
+            <div class="path-number">
+                01
+            </div>
+
+
+            <div class="path-icon">
+                ⌁
+            </div>
+
+
+            <div class="path-content">
+
+                <span class="path-tag">
+                    APPLY
+                </span>
+
+                <h3>
+                    Practice
+                </h3>
+
+                <p>
+                    Solve focused questions and strengthen
+                    your understanding of {{ topic.title }}.
+                </p>
+
+            </div>
+
+
+            <span class="path-arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <!-- QUIZ -->
+
+        <a
+            href="{{ url_for(
+                'quiz',
+                category=topic.category
+            ) }}"
+            class="ai-path-card"
+        >
+
+            <div class="path-number">
+                02
+            </div>
+
+
+            <div class="path-icon">
+                ?
+            </div>
+
+
+            <div class="path-content">
+
+                <span class="path-tag">
+                    CHALLENGE
+                </span>
+
+                <h3>
+                    Take a Quiz
+                </h3>
+
+                <p>
+                    Test your knowledge and discover
+                    how well you understand the topic.
+                </p>
+
+            </div>
+
+
+            <span class="path-arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <!-- PROGRESS -->
+
+        <a
+            href="{{ url_for('progress') }}"
+            class="ai-path-card"
+        >
+
+            <div class="path-number">
+                03
+            </div>
+
+
+            <div class="path-icon">
+                ↗
+            </div>
+
+
+            <div class="path-content">
+
+                <span class="path-tag">
+                    IMPROVE
+                </span>
+
+                <h3>
+                    Track Progress
+                </h3>
+
+                <p>
+                    Review your performance and continue
+                    improving your skills.
+                </p>
+
+            </div>
+
+
+            <span class="path-arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <!-- ALL TOPICS -->
+
+        <a
+            href="{{ url_for('learn') }}"
+            class="ai-path-card"
+        >
+
+            <div class="path-number">
+                04
+            </div>
+
+
+            <div class="path-icon">
+                ◇
+            </div>
+
+
+            <div class="path-content">
+
+                <span class="path-tag">
+                    EXPLORE
+                </span>
+
+                <h3>
+                    More Topics
+                </h3>
+
+                <p>
+                    Return to the learning lab and explore
+                    another technology topic.
+                </p>
+
+            </div>
+
+
+            <span class="path-arrow">
+                →
+            </span>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TOPIC CTA
+========================================================= -->
+
+<section class="section">
+
+    <div class="ai-final-cta">
+
+        <div class="cta-glow"></div>
+
+
+        <div class="cta-content">
+
+            <span class="section-label">
+                MODULE COMPLETE
+            </span>
+
+
+            <h2>
+                Turn knowledge into skill.
+            </h2>
+
+
+            <p>
+                You've explored the learning material.
+                Now practice {{ topic.title }} and
+                challenge yourself with a quiz.
+            </p>
+
+
+            <div class="hero-actions">
+
+                <a
+                    href="{{ url_for(
+                        'practice_category',
+                        category=topic.category
+                    ) }}"
+                    class="btn btn-primary"
+                >
+                    Start Practice →
+                </a>
+
+
+                <a
+                    href="{{ url_for(
+                        'learn'
+                    ) }}"
+                    class="btn btn-secondary"
+                >
+                    Explore More Topics
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div class="footer-logo">
+        Quizera<span>.</span>
+    </div>
+
+
+    <p class="footer-text">
+        Learn. Practice. Quiz. Grow.
+    </p>
+
+
+    <p class="footer-text">
+        {{ topic.title }} · AI Learning Lab
+    </p>
+
+
+    <div class="footer-links">
+
+        <a href="{{ url_for('learn') }}">
+            Learn
+        </a>
+
+        <a href="{{ url_for('practice') }}">
+            Practice
+        </a>
+
+        <a href="{{ url_for('quizzes') }}">
+            Quizzes
+        </a>
+
+        <a href="{{ url_for('progress') }}">
+            Progress
+        </a>
+
+        <a href="{{ url_for('leaderboard') }}">
+            Leaderboard
+        </a>
+
+        <a href="{{ url_for('profile') }}">
+            Profile
+        </a>
+
+    </div>
+
+
+    <p class="footer-text footer-copy">
+        © 2026 Quizera. Keep learning.
+    </p>
+
+</footer>
+
+
+<script
+    src="{{ url_for('static', filename='js/script.js') }}"
+></script>
+
+</body>
+
+</html>

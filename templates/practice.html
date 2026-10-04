@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Quizera | Practice</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar">
+
+    <div class="navbar-container">
+
+        <a
+            href="{{ url_for('home') }}"
+            class="logo"
+        >
+            Quizera<span>.</span>
+        </a>
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('learn') }}">
+                Learn
+            </a>
+
+            <a
+                href="{{ url_for('practice') }}"
+                class="active"
+            >
+                Practice
+            </a>
+
+            <a href="{{ url_for('quizzes') }}">
+                Quizzes
+            </a>
+
+            <a href="{{ url_for('progress') }}">
+                Progress
+            </a>
+
+            <a href="{{ url_for('leaderboard') }}">
+                Leaderboard
+            </a>
+
+            <a href="{{ url_for('profile') }}">
+                Profile
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main>
+
+
+<!-- =========================================================
+     PRACTICE HERO
+========================================================= -->
+
+<section class="ai-hero practice-ai-hero">
+
+    <div class="ai-grid"></div>
+
+    <div class="ai-hero-container">
+
+        <div class="ai-hero-content">
+
+            <div class="ai-hero-badge">
+
+                <span class="ai-status-dot"></span>
+
+                QUIZERA AI PRACTICE LAB
+
+            </div>
+
+
+            <h1>
+
+                Practice.
+
+                <br>
+
+                <span>Build real skill.</span>
+
+            </h1>
+
+
+            <p>
+
+                Strengthen what you learned with focused
+                questions. Practice freely, understand your
+                mistakes and become quiz-ready.
+
+            </p>
+
+
+            <div class="hero-actions">
+
+                <a
+                    href="#practice-topics"
+                    class="btn btn-primary"
+                >
+                    Choose a Topic →
+                </a>
+
+                <a
+                    href="{{ url_for('learn') }}"
+                    class="btn btn-secondary"
+                >
+                    Back to Learning
+                </a>
+
+            </div>
+
+
+            <div class="ai-hero-mini-stats">
+
+                <div>
+
+                    <strong>
+                        {{ category_counts|length }}
+                    </strong>
+
+                    <span>
+                        Practice Topics
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        ∞
+                    </strong>
+
+                    <span>
+                        Practice Freely
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        AI
+                    </strong>
+
+                    <span>
+                        Learning System
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             PRACTICE VISUAL
+        ================================================= -->
+
+        <div class="hero-visual">
+
+            <div class="practice-ai-visual">
+
+
+                <div class="practice-ring practice-ring-one"></div>
+
+                <div class="practice-ring practice-ring-two"></div>
+
+
+                <div class="practice-core">
+
+                    <div class="practice-core-header">
+
+                        <span class="practice-live-dot"></span>
+
+                        PRACTICE ENGINE
+
+                    </div>
+
+
+                    <div class="practice-core-icon">
+                        ?
+                    </div>
+
+
+                    <div class="practice-core-lines">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+
+                    <div class="practice-core-text">
+                        THINK · SOLVE · IMPROVE
+                    </div>
+
+                </div>
+
+
+                <div class="practice-floating practice-float-one">
+
+                    <span class="practice-mini-icon">
+                        ✓
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Solve
+                        </strong>
+
+                        <small>
+                            Build confidence
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="practice-floating practice-float-two">
+
+                    <span class="practice-mini-icon">
+                        ↻
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Repeat
+                        </strong>
+
+                        <small>
+                            Strengthen skills
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="practice-floating practice-float-three">
+
+                    <span class="practice-mini-icon">
+                        ↑
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Improve
+                        </strong>
+
+                        <small>
+                            Track progress
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PRACTICE TOPICS
+========================================================= -->
+
+<section
+    class="section"
+    id="practice-topics"
+>
+
+    <div class="section-header">
+
+        <div>
+
+            <span class="section-label">
+                PRACTICE DATABASE
+            </span>
+
+            <h2>
+                What do you want to practice?
+            </h2>
+
+            <p>
+                Select a topic and start solving focused
+                questions to strengthen your understanding.
+            </p>
+
+        </div>
+
+
+        <div class="badge badge-primary">
+
+            {{ category_counts|length }}
+
+            Topics
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         PRACTICE TOPIC GRID
+    ===================================================== -->
+
+    <div class="ai-practice-grid">
+
+        {% for category, count in category_counts.items() %}
+
+        <a
+            href="{{ url_for('practice_category', category=category) }}"
+            class="ai-practice-card"
+        >
+
+            <div class="ai-practice-card-top">
+
+
+                <div class="ai-practice-icon">
+
+                    {% if category == "Python" %}
+                        Py
+
+                    {% elif category == "C" %}
+                        C
+
+                    {% elif category == "C++" %}
+                        C++
+
+                    {% elif category == "Java" %}
+                        J
+
+                    {% elif category == "PHP" %}
+                        PHP
+
+                    {% elif category == "SQL" %}
+                        DB
+
+                    {% elif category == "JavaScript" %}
+                        JS
+
+                    {% elif category == "Web Development" %}
+                        &lt;/&gt;
+
+                    {% elif category == "Web Designing" %}
+                        UI
+
+                    {% elif category == "App Development" %}
+                        APP
+
+                    {% elif category == "UI/UX Design" %}
+                        UX
+
+                    {% elif category == "Artificial Intelligence" %}
+                        AI
+
+                    {% elif category == "Machine Learning" %}
+                        ML
+
+                    {% elif category == "Computer Science" %}
+                        CS
+
+                    {% elif category == "Data Structures" %}
+                        DS
+
+                    {% elif category == "Cyber Security" %}
+                        SEC
+
+                    {% elif category == "Prompt Making" %}
+                        &gt;
+
+                    {% elif category == "Content Creation" %}
+                        ✦
+
+                    {% else %}
+                        #
+                    {% endif %}
+
+                </div>
+
+
+                <span class="ai-practice-arrow">
+                    →
+                </span>
+
+            </div>
+
+
+            <div class="ai-practice-status">
+
+                <span class="practice-ready-dot"></span>
+
+                READY TO PRACTICE
+
+            </div>
+
+
+            <h3>
+                {{ category }}
+            </h3>
+
+
+            <p>
+                Practice focused questions and strengthen
+                your {{ category }} knowledge.
+            </p>
+
+
+            <div class="ai-practice-footer">
+
+                <span>
+                    {{ count }} questions
+                </span>
+
+                <span>
+                    Start →
+                </span>
+
+            </div>
+
+        </a>
+
+        {% else %}
+
+        <div class="empty-state">
+
+            <div class="empty-state-icon">
+                🧠
+            </div>
+
+            <h2>
+                No practice topics yet
+            </h2>
+
+            <p>
+                Practice questions will appear here soon.
+            </p>
+
+            <a
+                href="{{ url_for('learn') }}"
+                class="btn btn-primary"
+            >
+                Go to Learning →
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PRACTICE METHOD
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-header center">
+
+        <div>
+
+            <span class="section-label">
+                PRACTICE SYSTEM
+            </span>
+
+            <h2>
+                Train your thinking.
+            </h2>
+
+            <p>
+                Don't rush to the quiz. Use practice to
+                understand how well you actually know the topic.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="ai-practice-flow">
+
+
+        <!-- STEP 01 -->
+
+        <div class="ai-practice-flow-card">
+
+            <span class="practice-flow-number">
+                01
+            </span>
+
+            <div class="practice-flow-icon">
+                ◉
+            </div>
+
+            <span class="practice-flow-label">
+                SELECT
+            </span>
+
+            <h3>
+                Choose
+            </h3>
+
+            <p>
+                Select the topic you want to improve.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 02 -->
+
+        <div class="ai-practice-flow-card">
+
+            <span class="practice-flow-number">
+                02
+            </span>
+
+            <div class="practice-flow-icon">
+                ?
+            </div>
+
+            <span class="practice-flow-label">
+                SOLVE
+            </span>
+
+            <h3>
+                Practice
+            </h3>
+
+            <p>
+                Answer questions and think through
+                each problem carefully.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 03 -->
+
+        <div class="ai-practice-flow-card">
+
+            <span class="practice-flow-number">
+                03
+            </span>
+
+            <div class="practice-flow-icon">
+                ✓
+            </div>
+
+            <span class="practice-flow-label">
+                LEARN
+            </span>
+
+            <h3>
+                Understand
+            </h3>
+
+            <p>
+                Learn from the questions you get wrong
+                and strengthen your weak areas.
+            </p>
+
+        </div>
+
+
+        <!-- STEP 04 -->
+
+        <div class="ai-practice-flow-card">
+
+            <span class="practice-flow-number">
+                04
+            </span>
+
+            <div class="practice-flow-icon">
+                ↑
+            </div>
+
+            <span class="practice-flow-label">
+                ADVANCE
+            </span>
+
+            <h3>
+                Take the Quiz
+            </h3>
+
+            <p>
+                When you're ready, challenge yourself
+                with a full quiz.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PRACTICE TIP
+========================================================= -->
+
+<section class="section">
+
+    <div class="ai-practice-tip">
+
+        <div class="ai-practice-tip-icon">
+            AI
+        </div>
+
+
+        <div class="ai-practice-tip-content">
+
+            <span class="section-label">
+                SMART PRACTICE TIP
+            </span>
+
+            <h2>
+                Don't memorize the answer.
+            </h2>
+
+            <p>
+                Try to understand why an answer is correct.
+                When you understand the reasoning, you can
+                solve a completely different question using
+                the same concept.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{{ url_for('learn') }}"
+            class="btn btn-secondary"
+        >
+            Review Topics
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FINAL CTA
+========================================================= -->
+
+<section class="section">
+
+    <div class="ai-final-cta">
+
+        <div class="ai-cta-glow"></div>
+
+        <div class="ai-cta-content">
+
+            <span class="section-label">
+                READY FOR THE NEXT STEP?
+            </span>
+
+            <h2>
+                Practice first.
+                <br>
+                Quiz with confidence.
+            </h2>
+
+            <p>
+                Build your understanding through practice,
+                then test yourself when you're ready.
+            </p>
+
+            <div class="hero-actions">
+
+                <a
+                    href="#practice-topics"
+                    class="btn btn-primary"
+                >
+                    Start Practicing →
+                </a>
+
+                <a
+                    href="{{ url_for('quizzes') }}"
+                    class="btn btn-secondary"
+                >
+                    Take a Quiz
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div class="footer-logo">
+        Quizera<span>.</span>
+    </div>
+
+    <p class="footer-text">
+        Learn. Practice. Quiz. Improve.
+    </p>
+
+    <div class="footer-links">
+
+        <a href="{{ url_for('learn') }}">
+            Learn
+        </a>
+
+        <a href="{{ url_for('practice') }}">
+            Practice
+        </a>
+
+        <a href="{{ url_for('quizzes') }}">
+            Quizzes
+        </a>
+
+        <a href="{{ url_for('progress') }}">
+            Progress
+        </a>
+
+        <a href="{{ url_for('leaderboard') }}">
+            Leaderboard
+        </a>
+
+        <a href="{{ url_for('profile') }}">
+            Profile
+        </a>
+
+    </div>
+
+    <p class="footer-text">
+        © 2026 Quizera. Keep learning.
+    </p>
+
+</footer>
+
+
+<script
+    src="{{ url_for('static', filename='js/script.js') }}"
+></script>
+
+</body>
+</html>

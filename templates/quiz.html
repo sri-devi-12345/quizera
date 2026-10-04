@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quizera | Quiz</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="quiz-page">
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-container">
+
+            <a href="{{ url_for('home') }}" class="logo">
+                Quizera<span>.</span>
+            </a>
+
+            <div class="nav-links">
+
+                <a href="{{ url_for('home') }}">
+                    Home
+                </a>
+
+                <a href="{{ url_for('learn') }}">
+                    Learn
+                </a>
+
+                <a href="{{ url_for('practice') }}">
+                    Practice
+                </a>
+
+                <a href="{{ url_for('quizzes') }}" class="active">
+                    Quiz
+                </a>
+
+                <a href="{{ url_for('progress') }}">
+                    Progress
+                </a>
+
+                <a href="{{ url_for('leaderboard') }}">
+                    Leaderboard
+                </a>
+
+                <a href="{{ url_for('profile') }}">
+                    Profile
+                </a>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- QUIZ WORKSPACE -->
+    <main class="ai-quiz-workspace">
+
+        <!-- BACK + STATUS -->
+        <div class="quiz-workspace-top">
+
+            <a href="{{ url_for('quizzes') }}"
+               class="quiz-back-link">
+                <span>←</span>
+                Back to Quizzes
+            </a>
+
+            <div class="quiz-live-status">
+                <span class="quiz-live-dot"></span>
+                LIVE SESSION
+            </div>
+
+        </div>
+
+
+        <!-- QUIZ HEADER -->
+        <section class="ai-quiz-header">
+
+            <div class="quiz-header-content">
+
+                <div class="ai-hero-badge">
+                    <span class="ai-badge-dot"></span>
+                    AI LEARNING LAB
+                </div>
+
+                <span class="quiz-topic-label">
+                    {{ selected_category or "GENERAL QUIZ" }}
+                </span>
+
+                <h1>
+                    Test your
+                    <span>knowledge.</span>
+                </h1>
+
+                <p>
+                    Think carefully, choose the best answer,
+                    and track your progress as you learn.
+                </p>
+
+            </div>
+
+
+            <!-- TIMER -->
+            <div class="quiz-timer-panel">
+
+                <div class="quiz-timer-icon">
+                    ⏱
+                </div>
+
+                <div class="quiz-timer-info">
+
+                    <span>
+                        TIME REMAINING
+                    </span>
+
+                    <strong id="quiz-timer">
+                        60s
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- QUIZ PROGRESS -->
+        <section class="ai-quiz-progress">
+
+            <div class="quiz-progress-top">
+
+                <div class="quiz-question-counter">
+
+                    <span class="counter-icon">
+                        ◈
+                    </span>
+
+                    <span id="question-count">
+                        Question 1 / {{ questions|length }}
+                    </span>
+
+                </div>
+
+                <span id="progress-percent">
+                    0%
+                </span>
+
+            </div>
+
+
+            <div class="ai-quiz-progress-track">
+
+                <div id="quiz-progress-fill"
+                     class="ai-quiz-progress-fill">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- QUESTION AREA -->
+        <section class="ai-question-card">
+
+            <!-- TECH HEADER -->
+            <div class="question-card-header">
+
+                <div class="question-system">
+
+                    <span class="system-dot"></span>
+
+                    <span>
+                        QUESTION NODE
+                    </span>
+
+                </div>
+
+                <span id="question-category"
+                      class="question-category">
+                    {{ selected_category or "Quiz" }}
+                </span>
+
+            </div>
+
+
+            <!-- QUESTION -->
+            <div class="question-content">
+
+                <div class="question-number-display">
+                    Q
+                </div>
+
+                <h2 id="question">
+                    Loading question...
+                </h2>
+
+            </div>
+
+
+            <!-- ANSWERS -->
+            <div class="ai-answers-section">
+
+                <div class="answers-heading">
+                    SELECT ONE ANSWER
+                </div>
+
+                <div id="answers"
+                     class="answers-container">
+                </div>
+
+            </div>
+
+
+            <!-- HINT -->
+            <div class="ai-hint-area">
+
+                <button type="button"
+                        id="hint-btn"
+                        class="ai-hint-btn">
+
+                    <span class="hint-icon">
+                        ?
+                    </span>
+
+                    <span>
+                        Show Hint
+                    </span>
+
+                </button>
+
+                <p id="hint-text"
+                   class="hint-text">
+                </p>
+
+            </div>
+
+
+            <!-- NEXT -->
+            <div class="ai-quiz-actions">
+
+                <div class="quiz-action-info">
+
+                    <span class="action-status-dot"></span>
+
+                    <span>
+                        Select an answer to continue
+                    </span>
+
+                </div>
+
+                <button type="button"
+                        id="next-btn"
+                        class="ai-next-btn"
+                        disabled>
+
+                    <span>
+                        Next Question
+                    </span>
+
+                    <span class="next-arrow">
+                        →
+                    </span>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- QUIZ SYSTEM INFO -->
+        <section class="quiz-system-info">
+
+            <div class="quiz-info-card">
+
+                <div class="quiz-info-icon">
+                    ✓
+                </div>
+
+                <div>
+                    <strong>
+                        Smart Assessment
+                    </strong>
+
+                    <p>
+                        Your answers help Quizera track your
+                        learning performance.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="quiz-info-card">
+
+                <div class="quiz-info-icon">
+                    ⚡
+                </div>
+
+                <div>
+                    <strong>
+                        Stay Focused
+                    </strong>
+
+                    <p>
+                        Complete the quiz before the timer
+                        reaches zero.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="quiz-info-card">
+
+                <div class="quiz-info-icon">
+                    ◈
+                </div>
+
+                <div>
+                    <strong>
+                        Track Progress
+                    </strong>
+
+                    <p>
+                        Your result can be saved to your
+                        Quizera learning profile.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- RESULT / NAME MODAL -->
+    <div id="name-modal"
+         class="modal-overlay"
+         style="display:none;">
+
+        <div class="name-modal ai-result-modal">
+
+            <button type="button"
+                    class="modal-close"
+                    id="modal-close">
+                ×
+            </button>
+
+
+            <div class="result-ai-icon">
+                <div class="result-ai-ring"></div>
+
+                <span>
+                    ✓
+                </span>
+            </div>
+
+
+            <div class="ai-hero-badge">
+                <span class="ai-badge-dot"></span>
+                QUIZ COMPLETED
+            </div>
+
+
+            <h2>
+                Great job!
+            </h2>
+
+            <p>
+                Your quiz session is complete.
+                Enter your name to save your score
+                to the leaderboard.
+            </p>
+
+
+            <div class="result-input-group">
+
+                <label for="player-name">
+                    YOUR NAME
+                </label>
+
+                <input type="text"
+                       id="player-name"
+                       placeholder="Enter your name"
+                       maxlength="50"
+                       autocomplete="name">
+
+            </div>
+
+
+            <button type="button"
+                    id="save-name-btn"
+                    class="primary-btn result-save-btn">
+
+                Save My Score
+                <span>→</span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUESTIONS DATA -->
+    <script id="quiz-data"
+            type="application/json">{{ questions|tojson }}</script>
+
+
+    <div id="quiz-category"
+         data-category="{{ selected_category or 'General' }}">
+    </div>
+
+
+    <!-- QUIZ JAVASCRIPT -->
+    <script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+
+</body>
+</html>

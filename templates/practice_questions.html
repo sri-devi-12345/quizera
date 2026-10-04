@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ category }} Practice | Quizera</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<!-- =========================================================
+     NAVBAR
+     ========================================================= -->
+
+<nav class="navbar">
+    <div class="navbar-container">
+
+        <a href="{{ url_for('home') }}" class="logo">
+            Quizera
+        </a>
+
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('learn') }}">Learn</a>
+            <a href="{{ url_for('practice') }}" class="active">Practice</a>
+            <a href="{{ url_for('quizzes') }}">Quiz</a>
+            <a href="{{ url_for('progress') }}">Progress</a>
+            <a href="{{ url_for('leaderboard') }}">Leaderboard</a>
+        </div>
+
+    </div>
+</nav>
+
+
+<!-- =========================================================
+     PRACTICE HERO
+     ========================================================= -->
+
+<main class="practice-question-page">
+
+    <section class="practice-question-hero">
+
+        <div class="ai-grid"></div>
+
+        <div class="practice-question-hero-content">
+
+            <span class="ai-hero-badge">
+                <span class="hero-status-dot"></span>
+                AI PRACTICE LAB
+            </span>
+
+            <h1>
+                {{ category }}
+                <span>Practice</span>
+            </h1>
+
+            <p>
+                Strengthen your understanding by solving questions,
+                checking your answers, and learning from mistakes.
+            </p>
+
+            <div class="practice-session-stats">
+
+                <div class="practice-session-stat">
+                    <strong>{{ questions|length }}</strong>
+                    <span>Questions</span>
+                </div>
+
+                <div class="practice-session-stat">
+                    <strong>AI</strong>
+                    <span>Learning Mode</span>
+                </div>
+
+                <div class="practice-session-stat">
+                    <strong>∞</strong>
+                    <span>Learn & Improve</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         QUESTIONS
+         ===================================================== -->
+
+    <section class="practice-question-section">
+
+        <div class="section-header center">
+
+            <span class="section-label">
+                PRACTICE SESSION
+            </span>
+
+            <h2>
+                Test your knowledge
+            </h2>
+
+            <p>
+                Select an answer to instantly see whether you got it right.
+            </p>
+
+        </div>
+
+
+        <div class="practice-question-container">
+
+            {% if questions %}
+
+                {% for question in questions %}
+
+                <article class="practice-question-card">
+
+                    <!-- Question header -->
+
+                    <div class="practice-question-top">
+
+                        <div class="practice-question-number">
+                            <span>{{ "%02d"|format(loop.index) }}</span>
+                            Question
+                        </div>
+
+                        <div class="practice-question-topic">
+                            {{ category }}
+                        </div>
+
+                    </div>
+
+
+                    <!-- Question -->
+
+                    <h2 class="practice-question">
+                        {{ question.question }}
+                    </h2>
+
+
+                    <!-- Options -->
+
+                    <div class="practice-options">
+
+                        <button
+                            type="button"
+                            class="practice-option"
+                            onclick="checkPracticeAnswer(
+                                this,
+                                '{{ question.correct_answer|e }}'
+                            )">
+
+                            <span class="option-letter">A</span>
+
+                            <span class="option-text">
+                                {{ question.option1 }}
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="practice-option"
+                            onclick="checkPracticeAnswer(
+                                this,
+                                '{{ question.correct_answer|e }}'
+                            )">
+
+                            <span class="option-letter">B</span>
+
+                            <span class="option-text">
+                                {{ question.option2 }}
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="practice-option"
+                            onclick="checkPracticeAnswer(
+                                this,
+                                '{{ question.correct_answer|e }}'
+                            )">
+
+                            <span class="option-letter">C</span>
+
+                            <span class="option-text">
+                                {{ question.option3 }}
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="practice-option"
+                            onclick="checkPracticeAnswer(
+                                this,
+                                '{{ question.correct_answer|e }}'
+                            )">
+
+                            <span class="option-letter">D</span>
+
+                            <span class="option-text">
+                                {{ question.option4 }}
+                            </span>
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- Hint -->
+
+                    {% if question.hint %}
+
+                    <button
+                        type="button"
+                        class="practice-hint-btn"
+                        onclick="showPracticeHint(this)">
+
+                        <span>💡</span>
+                        Show Hint
+
+                    </button>
+
+                    <div class="practice-hint">
+                        {{ question.hint }}
+                    </div>
+
+                    {% endif %}
+
+
+                    <!-- Feedback -->
+
+                    <div class="practice-feedback"></div>
+
+                </article>
+
+                {% endfor %}
+
+
+            {% else %}
+
+                <!-- Empty state -->
+
+                <div class="practice-empty-state">
+
+                    <div class="practice-empty-icon">
+                        <span>∅</span>
+                    </div>
+
+                    <span class="section-label">
+                        PRACTICE LAB
+                    </span>
+
+                    <h2>
+                        No questions available yet
+                    </h2>
+
+                    <p>
+                        Questions for {{ category }} haven't been added yet.
+                    </p>
+
+                    <a
+                        href="{{ url_for('practice') }}"
+                        class="primary-btn">
+
+                        ← Back to Practice
+
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         NEXT STEP
+         ===================================================== -->
+
+    {% if questions %}
+
+    <section class="practice-next-section">
+
+        <div class="practice-next-card">
+
+            <div class="practice-next-content">
+
+                <span class="section-label">
+                    NEXT STEP
+                </span>
+
+                <h2>
+                    Ready to test yourself?
+                </h2>
+
+                <p>
+                    You've practiced {{ category }}.
+                    Now take the full quiz and measure your progress.
+                </p>
+
+            </div>
+
+
+            <div class="practice-next-actions">
+
+                <a
+                    href="{{ url_for('learn_topic', topic_id=0) }}"
+                    class="secondary-btn">
+
+                    Learn More
+
+                </a>
+
+                <a
+                    href="{{ url_for('quiz', category=category) }}"
+                    class="primary-btn">
+
+                    Take {{ category }} Quiz →
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    {% endif %}
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer class="ai-footer">
+
+    <div class="footer-container">
+
+        <div>
+            <div class="footer-logo">
+                Quizera
+            </div>
+
+            <p class="footer-text">
+                Learn. Practice. Quiz. Improve.
+            </p>
+        </div>
+
+        <div class="footer-ai-status">
+            <span></span>
+            AI Learning Lab Online
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     PRACTICE JAVASCRIPT
+     ========================================================= -->
+
+<script>
+
+function checkPracticeAnswer(button, correctAnswer) {
+
+    const card = button.closest(".practice-question-card");
+
+    if (!card || card.dataset.answered === "true") {
+        return;
+    }
+
+    const options = card.querySelectorAll(".practice-option");
+
+    const feedback =
+        card.querySelector(".practice-feedback");
+
+    const selectedText =
+        button.querySelector(".option-text")
+            .textContent
+            .trim();
+
+    const normalizedAnswer =
+        String(correctAnswer)
+            .trim()
+            .toUpperCase();
+
+    let correct = false;
+
+    /*
+     * Supports:
+     * 1, 2, 3, 4
+     */
+
+    if (normalizedAnswer === "1" && button === options[0]) {
+        correct = true;
+    }
+
+    if (normalizedAnswer === "2" && button === options[1]) {
+        correct = true;
+    }
+
+    if (normalizedAnswer === "3" && button === options[2]) {
+        correct = true;
+    }
+
+    if (normalizedAnswer === "4" && button === options[3]) {
+        correct = true;
+    }
+
+
+    /*
+     * Supports:
+     * A, B, C, D
+     */
+
+    if (normalizedAnswer === "A" && button === options[0]) {
+        correct = true;
+    }
+
+    if (normalizedAnswer === "B" && button === options[1]) {
+        correct = true;
+    }
+
+    if (normalizedAnswer === "C" && button === options[2]) {
+        correct = true;
+    }
+
+    if (normalizedAnswer === "D" && button === options[3]) {
+        correct = true;
+    }
+
+
+    /*
+     * Supports exact answer text
+     */
+
+    if (
+        selectedText.toLowerCase() ===
+        String(correctAnswer).trim().toLowerCase()
+    ) {
+        correct = true;
+    }
+
+
+    /*
+     * Lock question
+     */
+
+    card.dataset.answered = "true";
+
+    options.forEach(option => {
+        option.disabled = true;
+    });
+
+
+    /*
+     * Correct answer
+     */
+
+    if (correct) {
+
+        button.classList.add("practice-correct");
+
+        feedback.className =
+            "practice-feedback correct-feedback";
+
+        feedback.innerHTML = `
+            <span class="feedback-icon">✓</span>
+            <div>
+                <strong>Correct!</strong>
+                <span>Great job. Your understanding is on track.</span>
+            </div>
+        `;
+
+    }
+
+
+    /*
+     * Wrong answer
+     */
+
+    else {
+
+        button.classList.add("practice-wrong");
+
+        feedback.className =
+            "practice-feedback wrong-feedback";
+
+        feedback.innerHTML = `
+            <span class="feedback-icon">!</span>
+            <div>
+                <strong>Not quite.</strong>
+                <span>Review this concept and try it again in the quiz.</span>
+            </div>
+        `;
+
+
+        /*
+         * Highlight correct answer
+         */
+
+        options.forEach((option, index) => {
+
+            let isCorrectOption = false;
+
+            if (
+                (normalizedAnswer === "1" && index === 0) ||
+                (normalizedAnswer === "2" && index === 1) ||
+                (normalizedAnswer === "3" && index === 2) ||
+                (normalizedAnswer === "4" && index === 3) ||
+                (normalizedAnswer === "A" && index === 0) ||
+                (normalizedAnswer === "B" && index === 1) ||
+                (normalizedAnswer === "C" && index === 2) ||
+                (normalizedAnswer === "D" && index === 3)
+            ) {
+                isCorrectOption = true;
+            }
+
+            /*
+             * Exact text answer
+             */
+
+            const optionText =
+                option.querySelector(".option-text")
+                    .textContent
+                    .trim();
+
+            if (
+                optionText.toLowerCase() ===
+                String(correctAnswer).trim().toLowerCase()
+            ) {
+                isCorrectOption = true;
+            }
+
+            if (isCorrectOption) {
+                option.classList.add("practice-correct");
+            }
+
+        });
+
+    }
+
+}
+
+
+function showPracticeHint(button) {
+
+    const card =
+        button.closest(".practice-question-card");
+
+    if (!card) {
+        return;
+    }
+
+    const hint =
+        card.querySelector(".practice-hint");
+
+    if (!hint) {
+        return;
+    }
+
+    hint.classList.toggle("show");
+
+    if (hint.classList.contains("show")) {
+
+        button.innerHTML =
+            "<span>💡</span> Hide Hint";
+
+    } else {
+
+        button.innerHTML =
+            "<span>💡</span> Show Hint";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

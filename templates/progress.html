@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quizera | Progress</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="progress-page">
+
+<!-- =====================================================
+     NAVBAR
+====================================================== -->
+
+<nav class="navbar">
+    <div class="navbar-container">
+
+        <a href="{{ url_for('home') }}" class="logo">
+            Quizera<span>.</span>
+        </a>
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('learn') }}">
+                Learn
+            </a>
+
+            <a href="{{ url_for('practice') }}">
+                Practice
+            </a>
+
+            <a href="{{ url_for('quizzes') }}">
+                Quiz
+            </a>
+
+            <a href="{{ url_for('progress') }}" class="active">
+                Progress
+            </a>
+
+            <a href="{{ url_for('leaderboard') }}">
+                Leaderboard
+            </a>
+
+            <a href="{{ url_for('profile') }}">
+                Profile
+            </a>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<!-- =====================================================
+     AI PROGRESS HERO
+====================================================== -->
+
+<main class="progress-main">
+
+<section class="progress-ai-hero">
+
+    <div class="ai-grid"></div>
+
+    <div class="progress-hero-container">
+
+        <div class="progress-hero-content">
+
+            <div class="ai-hero-badge">
+                <span class="progress-live-dot"></span>
+                AI LEARNING ANALYTICS
+            </div>
+
+            <h1>
+                Track your
+                <span>learning progress.</span>
+            </h1>
+
+            <p>
+                Your Quizera learning dashboard gives you a clear view
+                of your quiz performance, achievements, and growth.
+            </p>
+
+            <div class="progress-hero-actions">
+
+                <a href="{{ url_for('learn') }}"
+                   class="secondary-btn">
+                    Continue Learning
+                </a>
+
+                <a href="{{ url_for('quizzes') }}"
+                   class="primary-btn">
+                    Take a Quiz →
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- AI ANALYTICS VISUAL -->
+
+        <div class="progress-ai-visual">
+
+            <div class="progress-orbit progress-orbit-one"></div>
+
+            <div class="progress-orbit progress-orbit-two"></div>
+
+            <div class="progress-orbit progress-orbit-three"></div>
+
+
+            <div class="progress-core">
+
+                <div class="progress-core-header">
+
+                    <span>
+                        QUIZERA AI
+                    </span>
+
+                    <span class="progress-core-live">
+                        ● LIVE
+                    </span>
+
+                </div>
+
+
+                <div class="progress-core-chart">
+
+                    <div class="chart-bar chart-bar-one"></div>
+                    <div class="chart-bar chart-bar-two"></div>
+                    <div class="chart-bar chart-bar-three"></div>
+                    <div class="chart-bar chart-bar-four"></div>
+                    <div class="chart-bar chart-bar-five"></div>
+
+                </div>
+
+
+                <strong>
+                    {{ stats.average_score }}%
+                </strong>
+
+                <small>
+                    Average Performance
+                </small>
+
+            </div>
+
+
+            <div class="progress-floating-card progress-float-one">
+
+                <span>
+                    BEST
+                </span>
+
+                <strong>
+                    {{ stats.best_score }}%
+                </strong>
+
+            </div>
+
+
+            <div class="progress-floating-card progress-float-two">
+
+                <span>
+                    QUIZZES
+                </span>
+
+                <strong>
+                    {{ stats.quizzes_completed }}
+                </strong>
+
+            </div>
+
+
+            <div class="progress-floating-card progress-float-three">
+
+                <span>
+                    STATUS
+                </span>
+
+                <strong>
+                    {% if stats.quizzes_completed > 0 %}
+                        ACTIVE
+                    {% else %}
+                        READY
+                    {% endif %}
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     OVERVIEW STATS
+====================================================== -->
+
+<section class="progress-overview-section">
+
+    <div class="progress-section-container">
+
+        <div class="progress-section-heading">
+
+            <div>
+
+                <span class="progress-eyebrow">
+                    LEARNING DATA
+                </span>
+
+                <h2>
+                    Your Overview
+                </h2>
+
+            </div>
+
+            <span class="progress-heading-status">
+                AI ANALYTICS
+            </span>
+
+        </div>
+
+
+        <div class="progress-overview">
+
+
+            <!-- COMPLETED -->
+
+            <div class="progress-stat-card">
+
+                <div class="progress-stat-icon">
+                    ✓
+                </div>
+
+                <div class="progress-stat-content">
+
+                    <span>
+                        QUIZZES COMPLETED
+                    </span>
+
+                    <strong>
+                        {{ stats.quizzes_completed }}
+                    </strong>
+
+                    <small>
+                        Total attempts
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- BEST SCORE -->
+
+            <div class="progress-stat-card">
+
+                <div class="progress-stat-icon">
+                    ★
+                </div>
+
+                <div class="progress-stat-content">
+
+                    <span>
+                        BEST SCORE
+                    </span>
+
+                    <strong>
+                        {{ stats.best_score }}%
+                    </strong>
+
+                    <small>
+                        Highest result
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- AVERAGE -->
+
+            <div class="progress-stat-card">
+
+                <div class="progress-stat-icon">
+                    %
+                </div>
+
+                <div class="progress-stat-content">
+
+                    <span>
+                        AVERAGE SCORE
+                    </span>
+
+                    <strong>
+                        {{ stats.average_score }}%
+                    </strong>
+
+                    <small>
+                        Overall performance
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="progress-stat-card">
+
+                <div class="progress-stat-icon">
+                    ↗
+                </div>
+
+                <div class="progress-stat-content">
+
+                    <span>
+                        LEARNING STATUS
+                    </span>
+
+                    <strong>
+
+                        {% if stats.quizzes_completed > 0 %}
+                            Active
+                        {% else %}
+                            Ready
+                        {% endif %}
+
+                    </strong>
+
+                    <small>
+                        Keep building skills
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PERFORMANCE DASHBOARD
+====================================================== -->
+
+<section class="progress-dashboard-section">
+
+    <div class="progress-dashboard-container">
+
+
+        <!-- PERFORMANCE -->
+
+        <div class="performance-card">
+
+            <div class="dashboard-card-header">
+
+                <div>
+
+                    <span class="progress-eyebrow">
+                        PERFORMANCE
+                    </span>
+
+                    <h2>
+                        Overall Performance
+                    </h2>
+
+                </div>
+
+                <span class="dashboard-live-status">
+                    ● TRACKING
+                </span>
+
+            </div>
+
+
+            {% if stats.quizzes_completed > 0 %}
+
+            <div class="performance-content">
+
+
+                <!-- SCORE -->
+
+                <div class="score-visual">
+
+                    <div class="score-circle"
+                         style="--score: {{ stats.average_score }};">
+
+                        <div class="score-circle-inner">
+
+                            <strong>
+                                {{ stats.average_score }}%
+                            </strong>
+
+                            <span>
+                                Average
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SUMMARY -->
+
+                <div class="performance-summary">
+
+                    <span class="summary-label">
+                        AI PERFORMANCE ANALYSIS
+                    </span>
+
+                    <h3>
+                        Keep building your skills.
+                    </h3>
+
+                    <p>
+
+                        Your current average score is
+                        <strong>
+                            {{ stats.average_score }}%
+                        </strong>.
+
+                        Complete more quizzes to build a
+                        stronger learning history.
+
+                    </p>
+
+
+                    <div class="performance-metrics">
+
+                        <div>
+
+                            <span>
+                                Best Score
+                            </span>
+
+                            <strong>
+                                {{ stats.best_score }}%
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Quizzes
+                            </span>
+
+                            <strong>
+                                {{ stats.quizzes_completed }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {% else %}
+
+
+            <!-- EMPTY -->
+
+            <div class="progress-empty-dashboard">
+
+                <div class="empty-dashboard-icon">
+                    ↑
+                </div>
+
+                <span class="progress-eyebrow">
+                    SYSTEM READY
+                </span>
+
+                <h3>
+                    Your progress starts here.
+                </h3>
+
+                <p>
+                    Complete your first quiz and Quizera will
+                    begin tracking your learning performance.
+                </p>
+
+                <a href="{{ url_for('quizzes') }}"
+                   class="progress-primary-btn">
+                    Take Your First Quiz →
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- =================================================
+             QUICK ACTIONS
+        ================================================== -->
+
+        <div class="quick-actions-card">
+
+            <div class="dashboard-card-header">
+
+                <div>
+
+                    <span class="progress-eyebrow">
+                        NEXT STEP
+                    </span>
+
+                    <h2>
+                        Keep Learning
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="quick-action-list">
+
+
+                <a href="{{ url_for('learn') }}"
+                   class="quick-action">
+
+                    <div class="quick-action-icon">
+                        LEARN
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Learn
+                        </strong>
+
+                        <span>
+                            Build your knowledge
+                        </span>
+
+                    </div>
+
+                    <b>
+                        →
+                    </b>
+
+                </a>
+
+
+                <a href="{{ url_for('practice') }}"
+                   class="quick-action">
+
+                    <div class="quick-action-icon">
+                        PRACTICE
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Practice
+                        </strong>
+
+                        <span>
+                            Strengthen your skills
+                        </span>
+
+                    </div>
+
+                    <b>
+                        →
+                    </b>
+
+                </a>
+
+
+                <a href="{{ url_for('quizzes') }}"
+                   class="quick-action">
+
+                    <div class="quick-action-icon">
+                        QUIZ
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Take a Quiz
+                        </strong>
+
+                        <span>
+                            Test your knowledge
+                        </span>
+
+                    </div>
+
+                    <b>
+                        →
+                    </b>
+
+                </a>
+
+
+                <a href="{{ url_for('leaderboard') }}"
+                   class="quick-action">
+
+                    <div class="quick-action-icon">
+                        RANK
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Leaderboard
+                        </strong>
+
+                        <span>
+                            Compare your results
+                        </span>
+
+                    </div>
+
+                    <b>
+                        →
+                    </b>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     QUIZ HISTORY
+====================================================== -->
+
+<section class="progress-history-section">
+
+    <div class="progress-history-container">
+
+        <div class="history-header">
+
+            <div>
+
+                <span class="progress-eyebrow">
+                    QUIZ HISTORY
+                </span>
+
+                <h2>
+                    Recent Results
+                </h2>
+
+                <p>
+                    Review your latest quiz attempts and scores.
+                </p>
+
+            </div>
+
+            <div class="history-system-status">
+
+                <span></span>
+
+                HISTORY TRACKING
+
+            </div>
+
+        </div>
+
+
+        {% if progress_data %}
+
+
+        <div class="history-table-wrapper">
+
+            <table class="history-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            #
+                        </th>
+
+                        <th>
+                            Topic
+                        </th>
+
+                        <th>
+                            Score
+                        </th>
+
+                        <th>
+                            Performance
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for item in progress_data %}
+
+                    <tr>
+
+                        <td>
+
+                            <span class="history-number">
+                                {{ loop.index }}
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="history-topic">
+
+                                <div class="history-topic-icon">
+
+                                    {% if item.category == "Python" %}
+                                        PY
+                                    {% elif item.category == "C" %}
+                                        C
+                                    {% elif item.category == "C++" %}
+                                        C++
+                                    {% elif item.category == "Java" %}
+                                        JV
+                                    {% elif item.category == "PHP" %}
+                                        PHP
+                                    {% elif item.category == "SQL" %}
+                                        SQL
+                                    {% elif item.category == "JavaScript" %}
+                                        JS
+                                    {% elif item.category == "Web Development" %}
+                                        WEB
+                                    {% elif item.category == "Web Designing" %}
+                                        UI
+                                    {% elif item.category == "App Development" %}
+                                        APP
+                                    {% elif item.category == "UI/UX Design" %}
+                                        UX
+                                    {% elif item.category == "Artificial Intelligence" %}
+                                        AI
+                                    {% elif item.category == "Machine Learning" %}
+                                        ML
+                                    {% elif item.category == "Computer Science" %}
+                                        CS
+                                    {% elif item.category == "Data Structures" %}
+                                        DS
+                                    {% elif item.category == "Cyber Security" %}
+                                        SEC
+                                    {% elif item.category == "Prompt Making" %}
+                                        AI
+                                    {% elif item.category == "Content Creation" %}
+                                        CC
+                                    {% else %}
+                                        QZ
+                                    {% endif %}
+
+                                </div>
+
+
+                                <div>
+
+                                    <strong>
+                                        {{ item.category }}
+                                    </strong>
+
+                                    <span>
+                                        {{ item.score }}
+                                        /
+                                        {{ item.total_questions }}
+                                        correct
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <strong class="history-score">
+
+                                {{ item.percentage|round|int }}%
+
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="history-performance">
+
+                                <div class="history-bar">
+
+                                    <div class="history-bar-fill"
+                                         style="width: {{ item.percentage }}%;">
+                                    </div>
+
+                                </div>
+
+
+                                <span>
+
+                                    {% if item.percentage >= 80 %}
+
+                                        Excellent
+
+                                    {% elif item.percentage >= 60 %}
+
+                                        Good
+
+                                    {% elif item.percentage >= 40 %}
+
+                                        Improving
+
+                                    {% else %}
+
+                                        Keep Practicing
+
+                                    {% endif %}
+
+                                </span>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="history-date">
+
+                                {{ item.completed_at }}
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+
+        <div class="progress-empty-history">
+
+            <div class="empty-history-icon">
+                +
+            </div>
+
+            <span class="progress-eyebrow">
+                NO DATA
+            </span>
+
+            <h3>
+                No quiz history yet
+            </h3>
+
+            <p>
+                Your completed quizzes will appear here.
+            </p>
+
+            <a href="{{ url_for('quizzes') }}"
+               class="progress-primary-btn">
+                Start a Quiz →
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     AI LEARNING INSIGHT
+====================================================== -->
+
+<section class="progress-insight-section">
+
+    <div class="progress-insight-container">
+
+        <div class="progress-insight-icon">
+            AI
+        </div>
+
+        <div>
+
+            <span class="progress-eyebrow">
+                QUIZERA AI INSIGHT
+            </span>
+
+            {% if stats.quizzes_completed > 0 %}
+
+                <h2>
+                    Every attempt makes your learning data smarter.
+                </h2>
+
+                <p>
+                    Continue moving through Learn → Practice → Quiz
+                    to build stronger knowledge and improve your results.
+                </p>
+
+            {% else %}
+
+                <h2>
+                    Your learning dashboard is ready.
+                </h2>
+
+                <p>
+                    Start with a lesson, practice what you learned,
+                    then take a quiz to begin creating your progress history.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FINAL CTA
+====================================================== -->
+
+<section class="progress-final-cta">
+
+    <div class="progress-final-container">
+
+        <div>
+
+            <span class="progress-eyebrow">
+                KEEP GOING
+            </span>
+
+            <h2>
+                Learn more.
+                Practice more.
+                Score higher.
+            </h2>
+
+            <p>
+                Your progress is built one learning session at a time.
+            </p>
+
+        </div>
+
+
+        <div class="progress-cta-actions">
+
+            <a href="{{ url_for('learn') }}"
+               class="secondary-btn">
+                Continue Learning
+            </a>
+
+            <a href="{{ url_for('practice') }}"
+               class="primary-btn">
+                Practice Now →
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<footer class="ai-footer">
+
+    <div class="footer-container">
+
+        <div>
+
+            <a href="{{ url_for('home') }}"
+               class="footer-logo">
+                Quizera<span>.</span>
+            </a>
+
+            <p class="footer-text">
+                Learn. Practice. Quiz. Track your progress.
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="{{ url_for('learn') }}">
+                Learn
+            </a>
+
+            <a href="{{ url_for('practice') }}">
+                Practice
+            </a>
+
+            <a href="{{ url_for('quizzes') }}">
+                Quiz
+            </a>
+
+            <a href="{{ url_for('progress') }}">
+                Progress
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 Quizera. Keep learning, keep growing.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

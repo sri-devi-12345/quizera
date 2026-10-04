@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Quizera | AI Learning Lab</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar">
+
+    <div class="navbar-container">
+
+        <a href="{{ url_for('home') }}" class="logo">
+            Quizera<span>.</span>
+        </a>
+
+        <div class="nav-links">
+
+            <a
+                href="{{ url_for('home') }}"
+                class="active"
+            >
+                Home
+            </a>
+
+            <a href="{{ url_for('learn') }}">
+                Learn
+            </a>
+
+            <a href="{{ url_for('practice') }}">
+                Practice
+            </a>
+
+            <a href="{{ url_for('quizzes') }}">
+                Quizzes
+            </a>
+
+            <a href="{{ url_for('progress') }}">
+                Progress
+            </a>
+
+            <a href="{{ url_for('leaderboard') }}">
+                Leaderboard
+            </a>
+
+            <a href="{{ url_for('profile') }}">
+                Profile
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main>
+
+<!-- =========================================================
+     AI HERO SECTION
+========================================================= -->
+
+<section class="hero ai-hero">
+
+    <div class="ai-grid"></div>
+
+    <div class="hero-container">
+
+        <!-- HERO CONTENT -->
+
+        <div class="hero-content">
+
+            <div class="hero-badge ai-badge">
+                <span class="status-dot"></span>
+                AI Learning Lab · Ready
+            </div>
+
+            <h1>
+
+                Learn smarter.
+
+                <br>
+
+                <span>Build your future.</span>
+
+            </h1>
+
+            <p>
+
+                Welcome to Quizera — your intelligent learning
+                space for programming, AI, computer science,
+                design and technology.
+
+            </p>
+
+            <div class="hero-actions">
+
+                <a
+                    href="{{ url_for('learn') }}"
+                    class="btn btn-primary"
+                >
+                    Start Learning
+                    <span>→</span>
+                </a>
+
+                <a
+                    href="{{ url_for('quizzes') }}"
+                    class="btn btn-secondary"
+                >
+                    Take a Quiz
+                </a>
+
+            </div>
+
+            <div class="hero-mini-info">
+
+                <span>
+                    <strong>{{ total_topics }}</strong>
+                    Topics
+                </span>
+
+                <span class="mini-divider"></span>
+
+                <span>
+                    <strong>{{ total_questions }}</strong>
+                    Questions
+                </span>
+
+                <span class="mini-divider"></span>
+
+                <span>
+                    <strong>4</strong>
+                    Learning stages
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CUTE QUIZERA AI ROBOT
+        ================================================== -->
+
+        <div class="hero-visual robot-hero-area">
+
+            <div class="robot-glow"></div>
+
+            <div class="robot-orbit orbit-one"></div>
+            <div class="robot-orbit orbit-two"></div>
+
+
+            <!-- ROBOT -->
+
+            <div
+                class="quizera-robot"
+                id="quizeraRobot"
+                aria-label="Quizera AI learning assistant"
+            >
+
+                <!-- antenna -->
+
+                <div class="robot-antenna">
+
+                    <div class="antenna-line"></div>
+
+                    <div class="antenna-light"></div>
+
+                </div>
+
+
+                <!-- head -->
+
+                <div class="robot-head">
+
+                    <div class="robot-ear left-ear"></div>
+
+                    <div class="robot-face">
+
+                        <div class="robot-eyes">
+
+                            <span class="robot-eye left-eye">
+                                <i></i>
+                            </span>
+
+                            <span class="robot-eye right-eye">
+                                <i></i>
+                            </span>
+
+                        </div>
+
+                        <div class="robot-mouth">
+                            <span></span>
+                        </div>
+
+                    </div>
+
+                    <div class="robot-ear right-ear"></div>
+
+                </div>
+
+
+                <!-- body -->
+
+                <div class="robot-body">
+
+                    <div class="robot-chest">
+
+                        <div class="robot-chest-label">
+                            AI
+                        </div>
+
+                        <div class="robot-chest-screen">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                    </div>
+
+                    <div class="robot-arm left-arm"></div>
+
+                    <div class="robot-arm right-arm"></div>
+
+                </div>
+
+
+                <!-- tiny legs -->
+
+                <div class="robot-feet">
+
+                    <div class="robot-foot"></div>
+
+                    <div class="robot-foot"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FLOATING AI DATA CARDS -->
+
+            <div class="robot-data-card data-card-one">
+
+                <span class="data-icon">✦</span>
+
+                <div>
+                    <strong>Learning AI</strong>
+                    <small>Online</small>
+                </div>
+
+            </div>
+
+
+            <div class="robot-data-card data-card-two">
+
+                <span class="data-icon">✓</span>
+
+                <div>
+                    <strong>Ready to learn</strong>
+                    <small>System active</small>
+                </div>
+
+            </div>
+
+
+            <div class="robot-data-card data-card-three">
+
+                <span class="data-icon">01</span>
+
+                <div>
+                    <strong>Quizera AI</strong>
+                    <small>Your study buddy</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     STATS
+========================================================= -->
+
+<section class="ai-stats-section">
+
+    <div class="stats">
+
+        <div class="stat-card ai-stat-card">
+
+            <div class="stat-icon">
+                ◈
+            </div>
+
+            <div>
+                <h2>{{ total_topics }}</h2>
+
+                <p>
+                    Learning Topics
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card ai-stat-card">
+
+            <div class="stat-icon">
+                #
+            </div>
+
+            <div>
+                <h2>{{ total_questions }}</h2>
+
+                <p>
+                    Questions
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card ai-stat-card">
+
+            <div class="stat-icon">
+                ◎
+            </div>
+
+            <div>
+                <h2>{{ category_counts|length }}</h2>
+
+                <p>
+                    Categories
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card ai-stat-card">
+
+            <div class="stat-icon">
+                ↗
+            </div>
+
+            <div>
+                <h2>4</h2>
+
+                <p>
+                    Learning Stages
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     LEARNING PATH
+========================================================= -->
+
+<section class="section ai-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <span class="section-label">
+                YOUR LEARNING SYSTEM
+            </span>
+
+            <h2>
+                One clear path from beginner to confident.
+            </h2>
+
+            <p>
+                Quizera turns learning into a simple,
+                structured process.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="ai-learning-path">
+
+        <!-- LEARN -->
+
+        <a
+            href="{{ url_for('learn') }}"
+            class="ai-path-card"
+        >
+
+            <div class="path-number">
+                01
+            </div>
+
+            <div class="path-icon">
+                ◇
+            </div>
+
+            <div class="path-content">
+
+                <span class="path-tag">
+                    UNDERSTAND
+                </span>
+
+                <h3>
+                    Learn
+                </h3>
+
+                <p>
+                    Understand concepts, examples and
+                    fundamentals before testing yourself.
+                </p>
+
+            </div>
+
+            <span class="path-arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <!-- PRACTICE -->
+
+        <a
+            href="{{ url_for('practice') }}"
+            class="ai-path-card"
+        >
+
+            <div class="path-number">
+                02
+            </div>
+
+            <div class="path-icon">
+                ⌁
+            </div>
+
+            <div class="path-content">
+
+                <span class="path-tag">
+                    DEVELOP
+                </span>
+
+                <h3>
+                    Practice
+                </h3>
+
+                <p>
+                    Solve questions and strengthen your
+                    understanding through repetition.
+                </p>
+
+            </div>
+
+            <span class="path-arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <!-- QUIZ -->
+
+        <a
+            href="{{ url_for('quizzes') }}"
+            class="ai-path-card"
+        >
+
+            <div class="path-number">
+                03
+            </div>
+
+            <div class="path-icon">
+                ?
+            </div>
+
+            <div class="path-content">
+
+                <span class="path-tag">
+                    TEST
+                </span>
+
+                <h3>
+                    Quiz
+                </h3>
+
+                <p>
+                    Challenge yourself and measure how much
+                    you really understand.
+                </p>
+
+            </div>
+
+            <span class="path-arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <!-- PROGRESS -->
+
+        <a
+            href="{{ url_for('progress') }}"
+            class="ai-path-card"
+        >
+
+            <div class="path-number">
+                04
+            </div>
+
+            <div class="path-icon">
+                ↗
+            </div>
+
+            <div class="path-content">
+
+                <span class="path-tag">
+                    IMPROVE
+                </span>
+
+                <h3>
+                    Track Progress
+                </h3>
+
+                <p>
+                    Monitor your performance and discover
+                    where you can improve.
+                </p>
+
+            </div>
+
+            <span class="path-arrow">
+                →
+            </span>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     EXPLORE TOPICS
+========================================================= -->
+
+<section class="section ai-section topics-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <span class="section-label">
+                KNOWLEDGE BASE
+            </span>
+
+            <h2>
+                Explore your technology topics.
+            </h2>
+
+            <p>
+                Pick a subject and let your learning journey begin.
+            </p>
+
+        </div>
+
+        <a
+            href="{{ url_for('quizzes') }}"
+            class="btn btn-secondary btn-small"
+        >
+            View all →
+        </a>
+
+    </div>
+
+
+    <div class="quiz-categories ai-topic-grid">
+
+        {% if category_counts %}
+
+            {% for category, count in category_counts.items() %}
+
+            <a
+                href="{{ url_for('quiz', category=category) }}"
+                class="category-card ai-topic-card"
+            >
+
+                <div class="topic-top">
+
+                    <div class="card-icon topic-icon">
+
+                        {% if category == "Python" %}
+                            Py
+                        {% elif category == "C" %}
+                            C
+                        {% elif category == "C++" %}
+                            C++
+                        {% elif category == "Java" %}
+                            J
+                        {% elif category == "PHP" %}
+                            PHP
+                        {% elif category == "SQL" %}
+                            DB
+                        {% elif category == "JavaScript" %}
+                            JS
+                        {% elif category == "Web Development" %}
+                            </ >
+                        {% elif category == "Web Designing" %}
+                            UI
+                        {% elif category == "App Development" %}
+                            APP
+                        {% elif category == "UI/UX Design" %}
+                            UX
+                        {% elif category == "Artificial Intelligence" %}
+                            AI
+                        {% elif category == "Machine Learning" %}
+                            ML
+                        {% elif category == "Computer Science" %}
+                            CS
+                        {% elif category == "Data Structures" %}
+                            DS
+                        {% elif category == "Cyber Security" %}
+                            SEC
+                        {% elif category == "Prompt Making" %}
+                            >
+                        {% elif category == "Content Creation" %}
+                            ✦
+                        {% else %}
+                            #
+                        {% endif %}
+
+                    </div>
+
+                    <span class="topic-status">
+                        {{ count }}
+                    </span>
+
+                </div>
+
+
+                <h3>
+                    {{ category }}
+                </h3>
+
+
+                <p>
+                    {{ count }} questions available
+                </p>
+
+
+                <div class="topic-footer">
+
+                    <span>
+                        Explore topic
+                    </span>
+
+                    <span>
+                        →
+                    </span>
+
+                </div>
+
+            </a>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-state-icon">
+                    ◈
+                </div>
+
+                <h2>
+                    No topics yet
+                </h2>
+
+                <p>
+                    Your learning topics will appear here.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     AI ASSISTANT PANEL
+========================================================= -->
+
+<section class="section ai-section">
+
+    <div class="ai-assistant-panel">
+
+        <div class="assistant-grid"></div>
+
+        <div class="assistant-content">
+
+            <div class="assistant-status">
+                <span class="status-dot"></span>
+                QUIZERA AI
+            </div>
+
+            <h2>
+                Your learning journey,
+                <span>powered by intelligence.</span>
+            </h2>
+
+            <p>
+                Learn concepts, practice your skills, test your
+                knowledge and track your improvement — all inside
+                one focused learning environment.
+            </p>
+
+            <div class="assistant-features">
+
+                <span>
+                    ✓ Structured learning
+                </span>
+
+                <span>
+                    ✓ Practice questions
+                </span>
+
+                <span>
+                    ✓ Instant quiz results
+                </span>
+
+                <span>
+                    ✓ Progress tracking
+                </span>
+
+            </div>
+
+            <a
+                href="{{ url_for('learn') }}"
+                class="btn btn-primary"
+            >
+                Enter Learning Lab →
+            </a>
+
+        </div>
+
+
+        <div class="assistant-mini-robot">
+
+            <div class="mini-robot-head">
+
+                <div class="mini-eye"></div>
+                <div class="mini-eye"></div>
+
+            </div>
+
+            <div class="mini-robot-body">
+                AI
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     HOW IT WORKS
+========================================================= -->
+
+<section class="section ai-section">
+
+    <div class="section-header center">
+
+        <span class="section-label">
+            HOW QUIZERA WORKS
+        </span>
+
+        <h2>
+            Learning without the confusion.
+        </h2>
+
+        <p>
+            Every part of Quizera is designed to help you
+            move from understanding to application.
+        </p>
+
+    </div>
+
+
+    <div class="ai-process">
+
+        <div class="process-line"></div>
+
+
+        <div class="process-item">
+
+            <div class="process-node">
+                01
+            </div>
+
+            <h3>
+                Understand
+            </h3>
+
+            <p>
+                Learn the concept and build your foundation.
+            </p>
+
+        </div>
+
+
+        <div class="process-item">
+
+            <div class="process-node">
+                02
+            </div>
+
+            <h3>
+                Apply
+            </h3>
+
+            <p>
+                Practice what you have learned.
+            </p>
+
+        </div>
+
+
+        <div class="process-item">
+
+            <div class="process-node">
+                03
+            </div>
+
+            <h3>
+                Challenge
+            </h3>
+
+            <p>
+                Test yourself with a proper quiz.
+            </p>
+
+        </div>
+
+
+        <div class="process-item">
+
+            <div class="process-node">
+                04
+            </div>
+
+            <h3>
+                Improve
+            </h3>
+
+            <p>
+                Track your results and keep growing.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FINAL CTA
+========================================================= -->
+
+<section class="section">
+
+    <div class="ai-final-cta">
+
+        <div class="cta-glow"></div>
+
+        <div class="cta-content">
+
+            <span class="section-label">
+                READY WHEN YOU ARE
+            </span>
+
+            <h2>
+                Your next skill
+                starts here.
+            </h2>
+
+            <p>
+                Choose a topic, enter the learning lab
+                and start building your knowledge.
+            </p>
+
+            <div class="hero-actions">
+
+                <a
+                    href="{{ url_for('learn') }}"
+                    class="btn btn-primary"
+                >
+                    Start Learning →
+                </a>
+
+                <a
+                    href="{{ url_for('quizzes') }}"
+                    class="btn btn-secondary"
+                >
+                    Explore Quizzes
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div class="footer-logo">
+        Quizera<span>.</span>
+    </div>
+
+    <p class="footer-text">
+        Learn. Practice. Quiz. Grow.
+    </p>
+
+    <p class="footer-text">
+        AI-powered learning for curious minds.
+    </p>
+
+    <p class="footer-text footer-copy">
+        © 2026 Quizera. Keep learning.
+    </p>
+
+</footer>
+
+
+<script
+    src="{{ url_for('static', filename='js/script.js') }}"
+></script>
+
+</body>
+</html>
